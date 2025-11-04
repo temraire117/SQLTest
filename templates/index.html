@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>학생 점수 조회</title></head>
+<body>
+  <h1>학생 점수 조회</h1>
+  <form method="post" action="/score">
+    <label>학번: <input name="student_id" required maxlength="20"></label>
+    <button type="submit">조회</button>
+  </form>
+  <div id="result">{{ result|safe }}</div>
+</body>
+</html>
