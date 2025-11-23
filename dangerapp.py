@@ -1,3 +1,5 @@
+# NEVER RUN THIS CODE IN OPEN, ONLY IN LOCAL
+
 from flask import Flask, request, render_template, g
 import sqlite3
 import os
@@ -29,9 +31,10 @@ def score():
     if not (1 <= len(student_id) <= 20):
         return render_template("index.html", result="잘못된 학번입니다.")
     db = get_db()
+    # 매우 위험! 학습용으로만
+    query = f"SELECT name, score FROM students WHERE id = {student_id}"
+    cur = db.execute(query)
 
-    #안전하게 바꾼 코드
-    cur = db.execute("SELECT name, score FROM students WHERE id = ?", (student_id,))
     row = cur.fetchone()
     if row:
         return render_template("index.html", result=f"이름: {row['name']} / 점수: {row['score']}")
