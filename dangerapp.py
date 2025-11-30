@@ -23,23 +23,24 @@ def close_db(e=None):
 
 @app.route("/")
 def index():
-    return render_template("index.html", result="")
+    return render_template("index2.html", result="")
 
 @app.route("/score", methods=["POST"])
 def score():
     student_id = request.form.get("student_id", "").strip()
-    if not (1 <= len(student_id) <= 20):
-        return render_template("index.html", result="잘못된 학번입니다.")
     db = get_db()
+    
     # 매우 위험! 학습용으로만
     query = f"SELECT name, score FROM students WHERE id = {student_id}"
     cur = db.execute(query)
 
-    row = cur.fetchone()
-    if row:
-        return render_template("index.html", result=f"이름: {row['name']} / 점수: {row['score']}")
+    rows = cur.fetchall()
+    if rows:
+        results = [f"이름: {row['name']} / 점수: {row['score']}" for row in rows]
+        return render_template("index2.html", results=results)
     else:
-        return render_template("index.html", result="학생을 찾을 수 없습니다.")
+        return render_template("index2.html", results=["학생을 찾을 수 없습니다."])
+
         
 if __name__ == "__main__":
     app.run(debug=True)

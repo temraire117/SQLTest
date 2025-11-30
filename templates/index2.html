@@ -4,9 +4,15 @@
 <body>
   <h1>학생 점수 조회</h1>
   <form method="post" action="/score">
-    <label>학번: <input name="student_id" required maxlength=""></label>
+    <label>학번: <input name="student_id" required maxlength="100"></label>
     <button type="submit">조회</button>
   </form>
-  <div id="result">{{ result|safe }}</div>
+  <div id="result">
+  <ul>
+    {% for r in results %}
+      <li>{{ r }}</li>
+    {% endfor %}
+  </ul>
+</div>
 </body>
 </html>

@@ -33,6 +33,7 @@ def score():
     #안전하게 바꾼 코드
     cur = db.execute("SELECT name, score FROM students WHERE id = ?", (student_id,))
     row = cur.fetchone()
+    
     if row:
         return render_template("index.html", result=f"이름: {row['name']} / 점수: {row['score']}")
     else:
